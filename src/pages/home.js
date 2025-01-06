@@ -11,7 +11,7 @@ function Denglu(){
     if(username=='admin' && password==2567){
         console.log('你输入的密码是对的，页面会跳转');
               // 跳转到 /dashboard 页面
-        // window.location.href = 'index.js';  // 正确：直接赋值给 href 属性
+        window.location.href = '1';  // 登录后如何跳转
         // fetch('http://121.37.152.111:8000/cbv/login',{
         //     method:'post',
         //     headers:{
