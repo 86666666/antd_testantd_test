@@ -7,51 +7,89 @@
   
   body {
     font-family: Arial, sans-serif;
-    background-color: #7FFFD4;
-    overflow: hidden; /* 防止滚动条出现 */
+    background: linear-gradient(90deg, 
+      #a4e368, 
+      #00e0de, 
+      #9cc6f1,
+      #a4e368 /* #a4e368  重复第一个颜色让过渡更自然 */
+    );
+    background-size: 200% 100%;  /* 关键：扩大背景尺寸 */
+    overflow: hidden;
     position: relative;
+    min-height: 100vh;
+    
+    /* 添加动画 */
+    animation: colorShake 6s ease-in-out infinite;
   }
   
-  /* 登录表单样式 */
+  @keyframes colorShake {
+    0%, 100% {
+      background-position: 0% 70%;
+    }
+    50% {
+      background-position: 100% 70%;
+    }
+  }
+  
+  
+  /* 登录表单容器 - 修改后 */
   .login-container {
     position: absolute;
-    top: 20%;
-    left: 35%;
-    transform: translate(20%, 51%);
-    background: rgba(132, 124, 124, 0.7);
-    padding: 60px;
+    /* 替换旧版定位 */
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 真正居中定位 */
+    background: rgba(142, 159, 165, 0.7);
+    padding: 2rem;
     border-radius: 10px;
     text-align: center;
     color: white;
     z-index: 10;
-    width: 20%;
+    
+    /* 新增响应式尺寸 */
+    width: 80%; /* 移动端更友好的宽度 */
+    max-width: 400px; /* 电脑端最大宽度限制 */
+    min-width: 280px; /* 防止过窄 */
   }
-  
+
+  /* 移动端小屏幕适配 */
+  @media (max-width: 768px) {
+    .login-container {
+      padding: 1.5rem; /* 减少内边距 */
+      width: 90%;     /* 更宽占比 */
+    }
+    
+    .login-container input,
+    .login-container button {
+      font-size: 14px; /* 调小字号 */
+      padding: 8px;    /* 调整触摸区域 */
+    }
+  }
   .login-container input {
     display: block;
-    width: 100%;
+    width: 80%;
     padding: 10px;
-    margin: 10px 0;
+    margin: 10px auto;
     border: none;
     border-radius: 5px;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(193, 236, 238, 0.3);
     color: white;
     font-size: 16px;
   }
   
   .login-container button {
-    background: #4CAF50;
+    background: #c9ebe1;
     color: white;
     border: none;
     padding: 10px;
-    width: 100%;
+    width: 80%;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
   }
   
   .login-container button:hover {
-    background: #45a049;
+    background: #ee6322;
   }
   
   /* 气泡样式 */

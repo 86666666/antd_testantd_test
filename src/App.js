@@ -6,7 +6,6 @@ import Shouye from './pgmp_web/shouye';  // 登陆后页面
 
 function App() {
   return (
-    <Router>
       <div>
         {/* 定义路由 */}
         <Routes>
@@ -23,7 +22,6 @@ function App() {
           <Route path="1" element={<Shouye />} />
         </Routes>
       </div>
-    </Router>
   );
 }
 

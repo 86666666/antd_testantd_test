@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>衣服相册</title>
+    <style>
+        /* * 清除所有元素的默认样式 */
+        *{  
+            padding: 0;
+            margin: 0;
+        }
+        /* ul 清除浮动 */
+        ul{
+            list-style: none;
+            overflow: hidden;
+        }
+        /* 让ul 下面的每个li 标签浮动起来  margin-left: 10px; 间距 */
+        ul li{
+            float: left;
+            width: 70px;
+            height: 70px;
+            margin-left: 20px;
+            margin-top: 20px;
+            border: 2px solid #fff;
+        }
+        ul li.active{
+            border-color: red;
+        }
+
+    </style>
+</head>
+<body>
+    <button id="btn">隐藏</button>
+    <img src="./image/1.jpg" id="bigImg",width='600', height="600">
+    <ul>
+        <li class="active">
+            <a href="">
+                <img src="./image/1.jpg" width="70" height="70"  class="smallImg">
+            </a>
+        </li>
+        <li class="active">
+            <a href="">
+                <img src="./image/2.jpg" width="70" height="70" class="smallImg">
+            </a>
+        </li>
+        <li class="active">
+            <a href="">
+                <img src="./image/3.jpg" width="70" height="70" class="smallImg">
+            </a>
+        </li>
+        <li class="active">
+            <a href="">
+                <img src="./image/4.jpg" width="70" height="70" class="smallImg">
+            </a>
+        </li>
+    </ul>
+    
+</body>
+</html>
