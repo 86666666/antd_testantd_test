@@ -2,6 +2,7 @@ import React from "react";
 import './styles.css';  // 引入CSS样式文件
 import { Navigate, useNavigate } from 'react-router-dom'; // 导入路由跳转组件
 import SplashCursor from '../pgmp_web/SplashCursor'
+import toKenstore from "../pgmp_web/Token" //导入 token管理组件（即全局状态管理）
 
 
 
@@ -111,15 +112,44 @@ function Htmlpage() {
     function Click(){
       navigate('/1')
     }
+    const add=toKenstore(state=> state.addtoken) //导入添加token方法
+    let cookie=document.cookie
+    console.log('这个是cookie',cookie)
     // 前端判断登录状态函数
     function Denglu() {
-        let username = document.getElementById('username').value; // 获取username提交后的值
-        let password = document.getElementById('password').value; // 获取password提交后的值
-        console.log(username, password);
-        if (username === 'admin' && password === '2567') {
+        let username_a = document.getElementById('username').value; // 获取username提交后的值
+        let password_a = document.getElementById('password').value; // 获取password提交后的值
+        console.log(username_a, password_a);
+        if (username_a === 'admin') {
             console.log('你输入的密码是对的，页面会跳转');
             // window.location.href = '1';  // 第一种跳转方式通过 js的原生方法跳转
-            Click()  //第二种跳转方式 通过  react 的 navigate路由跳转组件来跳转
+            // Click()  //第二种跳转方式 通过  react 的 navigate路由跳转组件来跳转
+            fetch('http://121.37.152.111:8000/tushare_api/cbv/login/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', // 确保这是服务器期望的 Content-Type
+                    // 如果需要其他头部字段，请在此添加
+                },
+                body: JSON.stringify({
+                    username: username_a,
+                    password: password_a
+                    // 确保所有必需的参数都已包含
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => { throw new Error(text); });
+                }
+                return response.json()
+            })
+            .then(data =>{
+                console.log('reponse data',data)
+                const tokenValue = data['token']; // 根据键名取值
+                console.log('tokenValue:', tokenValue);
+                add(tokenValue)  //调用 zustand来设置 localstorage来设置token
+                navigate('/1')  //登录成功跳转
+            })
+            .catch(error => console.error('Error:', error));
         } else {
             alert('用户名或密码错误'); 
         }
