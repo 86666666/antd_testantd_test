@@ -88,6 +88,19 @@ const SectorTable = () => {
     }
   ];
 
+  // const zhangtingColumns = [
+  //   {
+  //     title: '日期',
+  //     dataIndex: 'z_date',
+  //     key: 'z_date',
+  //   },
+  //   {
+  //     title: '涨停次数前1000 股票',
+  //     dataIndex: 'z_number',
+  //     key: 'z_number',
+  //   }
+  // ];
+
   const zhangtingColumns = [
     {
       title: '日期',
@@ -98,6 +111,18 @@ const SectorTable = () => {
       title: '涨停次数前1000 股票',
       dataIndex: 'z_number',
       key: 'z_number',
+      render: (text) => {
+        // 使用正则匹配括号及内容
+        const parts = text.split(/(\([^)]+\))/g);
+        
+        return parts.map((part, index) => {
+          // 如果是括号内容则红色显示
+          if (/\(.+\)/.test(part)) {
+            return <span key={index} style={{ color: '#e96d0b' }}>{part}</span>;
+          }
+          return <span key={index}>{part}</span>;
+        });
+      }
     }
   ];
 

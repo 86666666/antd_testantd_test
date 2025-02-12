@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,Suspense} from 'react';  //Suspense 是路由懒加载组件
 import { Layout, Menu, Row, Col, Card, Typography } from 'antd';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from'react-router-dom';
 import {
@@ -10,10 +10,17 @@ import {
 } from '@ant-design/icons';
 import SplashCursor from './SplashCursor';
 import Test3 from "./Test3";
-import Test4 from "./Test4";
-import SectorTable from "./Xiangguanxing"
-import QushixingTable from  "./Qushixing"
+// import SectorTable from "./Xiangguanxing"
+// import QushixingTable from  "./Qushixing"
+import Description from './Description_page';
 
+// const SectorTable =React.lazy(() => ('./Xiangguanxing'))
+// const QushixingTable =React.lazy(() => ('./Qushixing'))
+
+// 确保使用了正确的动态导入语法
+const SectorTable = React.lazy(() => import('./Xiangguanxing'));
+const QushixingTable = React.lazy(() => import('./Qushixing'));
+const GetData = React.lazy(() => import('./Getdata'));
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Title, Text } = Typography;
@@ -32,7 +39,7 @@ const items = [
   getItem('玄学调参', '1', <PieChartOutlined />),
   getItem('相关性', '4', <DesktopOutlined />),
   getItem('趋势性', '5', <DesktopOutlined />),
-  getItem('test', '3', <DesktopOutlined />),
+  getItem('数据获取', '3', <DesktopOutlined />),
 ];
 
 function App() {
@@ -83,12 +90,14 @@ function App() {
 
         {/* 内容区域 */}
         <Content style={{ margin: '16px' }}>
+        <Suspense fallback={<div>加载中...</div>}>
           <Routes>
-            {/* <Route path="/" element={<Test4 />} /> */}
-            <Route path="3" element={<Test3 />} />
+            <Route path="/" element={<Description />} />   {/* 描述页面 */}
+            <Route path="3" element={<GetData />} />
             <Route path="4" element={<SectorTable />} />
             <Route path="5" element={<QushixingTable />} />
           </Routes>
+        </Suspense>
           {/* <Row gutter={[16, 16]}>
             <Col xs={24} sm={12} md={8} lg={6}>
               <Card>
